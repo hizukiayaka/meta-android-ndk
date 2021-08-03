@@ -1,0 +1,40 @@
+This README file contains information on the contents of the meta-android-ndk layer.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+  URI: http://git.yoctoproject.org/cgit.cgi/meta-external-toolchain/
+  branch: master
+
+UP layer
+=======
+  URI: https://github.com/kraj/meta-clang
+  branch: master
+  Fixing it
+
+Patches
+=======
+
+Please submit any patches against the meta-android-ndk layer to the xxxx mailing list (xxxx@zzzz.org)
+and cc: the maintainer:
+
+Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
+
+Table of Contents
+=================
+
+  I. Adding the meta-android-ndk layer to your build
+ II. Misc
+
+
+I. Adding the meta-android-ndk layer to your build
+=================================================
+
+Run 'bitbake-layers add-layer meta-android-ndk'
+
+II. Misc
+========
+
+--- replace with specific information about the meta-android-ndk layer ---
