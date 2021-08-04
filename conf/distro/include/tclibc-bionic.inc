@@ -25,5 +25,6 @@ TOOLCHAIN_TARGET_TASK ?= "${LIBC_DEPENDENCIES}"
 TOOLCHAIN_NEED_CONFIGSITE_CACHE_remove = "zlib ncurses"
 
 # Android requests pie security flags
+GCCPIE = ""
 SECURITY_CFLAGS_libc-bionic = "${SECURITY_PIE_CFLAGS}"
 SECURITY_LDFLAGS_libc-bionic = "-Wl,-z,relro,-z,now"

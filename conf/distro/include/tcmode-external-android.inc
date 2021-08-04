@@ -9,34 +9,38 @@ ELT_TARGET_SYS_arm = "armv7a-linux-androideabi"
 ELT_TARGET_SYS_aarch64 = "aarch64-linux-android"
 ELT_TARGET_SYS_x86 = "i686-linux-android"
 ELT_TARGET_SYS_x86-64 = "x86_64-linux-android"
-TARGET_PREFIX = "${ELT_TARGET_SYS}${ANDROID_NDK_PLATFORM_LEVEL}-"
 
-CC_toolchain-clang_forcevariable = "${CCACHE}${TARGET_PREFIX}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
-CXX_toolchain-clang_forcevariable = "${CCACHE}${TARGET_PREFIX}clang++ ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
-CPP_toolchain-clang_forcevariable = "${CCACHE}${TARGET_PREFIX}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS} -E"
-CCLD_toolchain-clang_forcevariable = "${CCACHE}${TARGET_PREFIX}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
-RANLIB_toolchain-clang_forcevariable = "llvm-ranlib"
-AR_toolchain-clang_forcevariable = "llvm-ar"
-NM_toolchain-clang_forcevariable = "llvm-nm"
-LD_toolchain-clang = "ld.lld"
-
-GCCPIE = ""
-
-TARGET_OS = "linux-androideabi"
 EXTERNAL_TARGET_SYS ?= "${ELT_TARGET_SYS}${ANDROID_NDK_PLATFORM_LEVEL}"
 EXTERNAL_SDK_SYS ?= "${SDK_SYS}"
+
 EXTERNAL_MULTIMACH_TARGET_SYS_arm = "arm-linux-androideabi"
 EXTERNAL_MULTIMACH_TARGET_SYS_aarch64 = "aarch64-linux-android"
 EXTERNAL_MULTIMACH_TARGET_SYS_x86 = "i686-linux-android"
 EXTERNAL_MULTIMACH_TARGET_SYS_x86-64 = "x86_64-linux-android"
 EXTERNAL_TOOLCHAIN_SYSROOT = "${EXTERNAL_TOOLCHAIN}/llvm/prebuilt/linux-x86_64/sysroot"
-HOST_PREFIX = "${EXTERNAL_MULTIMACH_TARGET_SYS}-"
 
-HOST_CC_ARCH_remove = "--no-sysroot-suffix"
-
-EXTERNAL_CC = "${TARGET_PREFIX}clang \
+EXTERNAL_CC = "clang \
                -resource-dir ${EXTERNAL_TOOLCHAIN_SYSROOT}/usr/lib/${EXTERNAL_MULTIMACH_TARGET_SYS}/${ANDROID_NDK_PLATFORM_LEVEL} \
               "
+
+RANLIB_toolchain-clang_forcevariable = "llvm-ranlib"
+AR_toolchain-clang_forcevariable = "llvm-ar"
+NM_toolchain-clang_forcevariable = "llvm-nm"
+LD_toolchain-clang = "ld.lld"
+
+HOST_SYS_toolchain-clang = "${EXTERNAL_TARGET_SYS}"
+
+CC_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+CXX_toolchain-clang_forcevariable = "${CCACHE}clang++ ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+CPP_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS} -E"
+CCLD_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+
+TARGET_PREFIX = "${EXTERNAL_MULTIMACH_TARGET_SYS}-"
+TARGET_OS = "linux-androideabi"
+
+HOST_PREFIX = "${EXTERNAL_MULTIMACH_TARGET_SYS}-"
+HOST_CC_ARCH_remove = "--no-sysroot-suffix"
+
 PREFERRED_PROVIDER_virtual/libc = "bionic-external"
 PREFERRED_PROVIDER_virtual/libiconv = "bionic-external"
 PREFERRED_PROVIDER_virtual/libintl = "gettext"
