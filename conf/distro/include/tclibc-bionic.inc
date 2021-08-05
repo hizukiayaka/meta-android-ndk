@@ -2,7 +2,8 @@
 # Android bionic configuration
 #
 
-LIBCEXTENSION = "-bionic"
+# It looks like nobody call it bionic environment
+LIBCEXTENSION = "-android"
 LIBCOVERRIDE = ":libc-bionic"
 
 PREFERRED_PROVIDER_virtual/libc ??= "bionic"

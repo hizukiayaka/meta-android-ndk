@@ -35,15 +35,19 @@ CXX_toolchain-clang_forcevariable = "${CCACHE}clang++ ${HOST_CC_ARCH}${TOOLCHAIN
 CPP_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS} -E"
 CCLD_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
 
+TARGET_SYS_toolchain-clang = "${EXTERNAL_TARGET_SYS}"
 TARGET_PREFIX = "${EXTERNAL_MULTIMACH_TARGET_SYS}-"
-TARGET_OS = "linux-androideabi"
 
 HOST_PREFIX = "${EXTERNAL_MULTIMACH_TARGET_SYS}-"
 HOST_CC_ARCH_remove = "--no-sysroot-suffix"
 
+SOLIBS_runtime-android = ".so"
+SOLIBSDEV_runtime-android = ".so.broken"
+
 PREFERRED_PROVIDER_virtual/libc = "bionic-external"
 PREFERRED_PROVIDER_virtual/libiconv = "bionic-external"
-PREFERRED_PROVIDER_virtual/libintl = "gettext"
+PREFERRED_PROVIDER_virtual/libintl = "proxy-libintl"
+PREFERRED_PROVIDER_libcxx = "libcxx-external"
 PREFERRED_PROVIDER_zlib = "zlib-external"
 
 # This is defined in default-providers.inc, which is parsed before the tcmode,
