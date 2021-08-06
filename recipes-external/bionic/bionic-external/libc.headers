@@ -92,5 +92,6 @@ android/legacy_sys_wait_inlines.h
 android/legacy_termios_inlines.h
 android/legacy_threads_inlines.h
 android/legacy_unistd_inlines.h
+android/ndk-version.h
 android/set_abort_message.h
 android/versioning.h
