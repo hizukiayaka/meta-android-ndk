@@ -12,9 +12,10 @@ DEPENDS_append_class-target = " clang-cross-${TARGET_ARCH} virtual/${MLPREFIX}li
 
 FILES_MIRRORS =. "\
     ${libdir}/|/usr/lib/${EXTERNAL_MULTIMACH_TARGET_SYS}/ \n\
+    ${libdir}/|/usr/lib/${EXTERNAL_MULTIMACH_TARGET_SYS}/${ANDROID_NDK_PLATFORM_LEVEL}/ \n\
 "
 
-FILES_${PN} = "${libdir}/libc++*.so"
+FILES_${PN} = "${libdir}/libc++*.so ${libdir}/libc++.so"
 FILES_${PN}-staticdev = "${libdir}/libc++*.a ${libdir}/libstdc++.a ${libdir}/libunwind.a"
 FILES_${PN}-dev = "${includedir}/c++"
 
