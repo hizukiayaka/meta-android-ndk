@@ -18,9 +18,9 @@ EXTERNAL_PROVIDE_PATTERN = "${libdir}/libz.*"
 libc_rdep = "${@'${PREFERRED_PROVIDER_virtual/libc}' if '${PREFERRED_PROVIDER_virtual/libc}' else '${TCLIBC}'}"
 RDEPENDS_${PN} += "${libc_rdep}"
 
-FILES_${PN} = "${libdir}/libz.so"
-FILES_${PN}-staticdev = "${libdir}/libz.a"
-FILES_${PN}-dev = "\
+FILES:${PN} = "${libdir}/libz.so"
+FILES:${PN}-staticdev = "${libdir}/libz.a"
+FILES:${PN}-dev = "\
     ${includedir}/zconf.h \
     ${includedir}/zlib.h \
 "

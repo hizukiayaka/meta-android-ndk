@@ -16,7 +16,7 @@ android_ndk_modules = " \
 
 ndk_headers_file = "${@bb.utils.which('${FILESPATH}', 'ndk.headers')}"
 
-FILES_${PN}-dev = " \
+FILES:${PN}-dev = " \
     ${@' '.join('${libdir}/%s' % d for d in '${android_ndk_modules}'.split())} \
     ${@' '.join('${includedir}/' + f.rstrip() for f in oe.utils.read_file('${ndk_headers_file}').splitlines())} \
     ${includedir}/aaudio \

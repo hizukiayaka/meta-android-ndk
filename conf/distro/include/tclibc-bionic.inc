@@ -23,7 +23,7 @@ ASSUME_PROVIDED += "virtual/crypt"
 
 TOOLCHAIN_HOST_TASK ?= "packagegroup-cross-canadian-${MACHINE} nativesdk-qemu"
 TOOLCHAIN_TARGET_TASK ?= "${LIBC_DEPENDENCIES}"
-TOOLCHAIN_NEED_CONFIGSITE_CACHE_remove = "zlib ncurses"
+TOOLCHAIN_NEED_CONFIGSITE_CACHE:remove = "zlib ncurses"
 
 # Android requests pie security flags
 GCCPIE = ""

@@ -5,44 +5,44 @@ TCLIBC = "bionic"
 
 ANDROID_NDK_PLATFORM_LEVEL ?= "30"
 
-ELT_TARGET_SYS_arm = "armv7a-linux-androideabi"
-ELT_TARGET_SYS_aarch64 = "aarch64-linux-android"
-ELT_TARGET_SYS_x86 = "i686-linux-android"
-ELT_TARGET_SYS_x86-64 = "x86_64-linux-android"
+ELT_TARGET_SYS:arm = "armv7a-linux-androideabi"
+ELT_TARGET_SYS:aarch64 = "aarch64-linux-android"
+ELT_TARGET_SYS:x86 = "i686-linux-android"
+ELT_TARGET_SYS:x86-64 = "x86_64-linux-android"
 
 EXTERNAL_TARGET_SYS ?= "${ELT_TARGET_SYS}${ANDROID_NDK_PLATFORM_LEVEL}"
 EXTERNAL_SDK_SYS ?= "${SDK_SYS}"
 
-EXTERNAL_MULTIMACH_TARGET_SYS_arm = "arm-linux-androideabi"
-EXTERNAL_MULTIMACH_TARGET_SYS_aarch64 = "aarch64-linux-android"
-EXTERNAL_MULTIMACH_TARGET_SYS_x86 = "i686-linux-android"
-EXTERNAL_MULTIMACH_TARGET_SYS_x86-64 = "x86_64-linux-android"
+EXTERNAL_MULTIMACH_TARGET_SYS:arm = "arm-linux-androideabi"
+EXTERNAL_MULTIMACH_TARGET_SYS:aarch64 = "aarch64-linux-android"
+EXTERNAL_MULTIMACH_TARGET_SYS:x86 = "i686-linux-android"
+EXTERNAL_MULTIMACH_TARGET_SYS:x86-64 = "x86_64-linux-android"
 EXTERNAL_TOOLCHAIN_SYSROOT = "${EXTERNAL_TOOLCHAIN}/llvm/prebuilt/linux-x86_64/sysroot"
 
 EXTERNAL_CC = "clang \
                -resource-dir ${EXTERNAL_TOOLCHAIN_SYSROOT}/usr/lib/${EXTERNAL_MULTIMACH_TARGET_SYS}/${ANDROID_NDK_PLATFORM_LEVEL} \
               "
 
-RANLIB_toolchain-clang_forcevariable = "llvm-ranlib"
-AR_toolchain-clang_forcevariable = "llvm-ar"
-NM_toolchain-clang_forcevariable = "llvm-nm"
-LD_toolchain-clang = "ld.lld"
+RANLIB:toolchain-clang:forcevariable = "llvm-ranlib"
+AR:toolchain-clang:forcevariable = "llvm-ar"
+NM:toolchain-clang:forcevariable = "llvm-nm"
+LD:toolchain-clang = "ld.lld"
 
-HOST_SYS_toolchain-clang = "${EXTERNAL_TARGET_SYS}"
+HOST_SYS:toolchain-clang = "${EXTERNAL_TARGET_SYS}"
 
-CC_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
-CXX_toolchain-clang_forcevariable = "${CCACHE}clang++ ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
-CPP_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS} -E"
-CCLD_toolchain-clang_forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+CC:toolchain-clang:forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+CXX:toolchain-clang:forcevariable = "${CCACHE}clang++ ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
+CPP:toolchain-clang:forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS} -E"
+CCLD:toolchain-clang:forcevariable = "${CCACHE}clang ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}"
 
-TARGET_SYS_toolchain-clang = "${EXTERNAL_TARGET_SYS}"
+TARGET_SYS:toolchain-clang = "${EXTERNAL_TARGET_SYS}"
 TARGET_PREFIX = "${EXTERNAL_MULTIMACH_TARGET_SYS}-"
 
 HOST_PREFIX = "${EXTERNAL_MULTIMACH_TARGET_SYS}-"
-HOST_CC_ARCH_remove = "--no-sysroot-suffix"
+HOST_CC_ARCH:remove = "--no-sysroot-suffix"
 
-SOLIBS_runtime-android = ".so"
-SOLIBSDEV_runtime-android = ".so.broken"
+SOLIBS:runtime-android = ".so"
+SOLIBSDEV:runtime-android = ".so.broken"
 
 PREFERRED_PROVIDER_virtual/libc = "bionic-external"
 PREFERRED_PROVIDER_virtual/libiconv = "bionic-external"
@@ -98,5 +98,5 @@ LLVM_VERSION = "${@external_run(d, d.getVar('EXTERNAL_CC'), '-dumpversion').rstr
 
 BUILDCFG_VARS += "${@'ANDROID_NDK_TOOLCHAIN_VERSION' if d.getVar('ANDROID_NDK_VERSION') != 'UNKNOWN' else ''}"
 
-INHERIT_remove = "sanity-external-toolchain"
-INHERIT += "sanity-external-toolchain-clang"
+INHERIT:remove = "sanity-external-toolchain"
+INHERIT:append = " sanity-external-toolchain-clang"
