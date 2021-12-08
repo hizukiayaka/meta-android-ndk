@@ -49,6 +49,7 @@ PREFERRED_PROVIDER_virtual/libiconv = "bionic-external"
 PREFERRED_PROVIDER_virtual/libintl = "proxy-libintl"
 PREFERRED_PROVIDER_libcxx = "libcxx-external"
 PREFERRED_PROVIDER_zlib = "zlib-external"
+PREFERRED_PROVIDER_compiler-rt = "compiler-rt-external"
 
 # This is defined in default-providers.inc, which is parsed before the tcmode,
 # so we can't use ?=
@@ -94,7 +95,7 @@ EXTERNAL_PV_SUFFIX_allarch = ""
 
 # Make it clear that this version is the toolchain
 ANDROID_NDK_TOOLCHAIN_VERSION = "${ANDROID_NDK_VERSION}"
-LLVM_VERSION = "${@external_run(d, d.getVar('EXTERNAL_CC'), '-dumpversion').rstrip()}"
+LLVMVERSION = "${@external_run(d, d.getVar('EXTERNAL_CC'), '-dumpversion').rstrip()}"
 
 BUILDCFG_VARS += "${@'ANDROID_NDK_TOOLCHAIN_VERSION' if d.getVar('ANDROID_NDK_VERSION') != 'UNKNOWN' else ''}"
 
