@@ -45,6 +45,7 @@ SOLIBS:runtime-android = ".so"
 SOLIBSDEV:runtime-android = ".so.broken"
 
 PREFERRED_PROVIDER_virtual/libc = "bionic-external"
+# NOTE: Android only provides libiconv with API level >=28 (Pie and newer)
 PREFERRED_PROVIDER_virtual/libiconv = "bionic-external"
 PREFERRED_PROVIDER_virtual/libintl = "proxy-libintl"
 PREFERRED_PROVIDER_libcxx = "libcxx-external"
@@ -56,6 +57,16 @@ PREFERRED_PROVIDER_compiler-rt = "compiler-rt-external"
 PREFERRED_PROVIDER_linux-libc-headers = "linux-libc-headers-external"
 PNBLACKLIST[linux-libc-headers] = "not building with an external toolchain"
 PNBLACKLIST[linux-libc-headers-yocto] = "not building with an external toolchain"
+
+BASE_DEFAULT_DEPS:remove = "${MLPREFIX}clang-cross-${TARGET_ARCH}"
+BASE_DEFAULT_DEPS:toolchain-clang:remove = "${MLPREFIX}clang-cross-${TARGET_ARCH}"
+BASE_DEFAULT_DEPS:toolchain-clang:class-target:remove = "${MLPREFIX}clang-cross-${TARGET_ARCH}"
+
+PNBLACKLIST_DYNAMIC:append = "\
+    ${MLPREFIX}clang-cross-${TARGET_ARCH} \
+    clang-cross-canadian-${TRANSLATED_TARGET_ARCH} \
+    clang-crosssdk-${TRANSLATED_TARGET_ARCH} \
+"
 
 # Disable pseudo for these cross binaries
 EXTERNAL_CROSS_NOPSEUDO = "gcc g++ cpp"
@@ -101,3 +112,6 @@ BUILDCFG_VARS += "${@'ANDROID_NDK_TOOLCHAIN_VERSION' if d.getVar('ANDROID_NDK_VE
 
 INHERIT:remove = "sanity-external-toolchain"
 INHERIT:append = " sanity-external-toolchain-clang"
+
+BUILDCFG_VARS:remove = "GCC_VERSION"
+BUILDCFG_VARS:append = "LLVMVERSION"
