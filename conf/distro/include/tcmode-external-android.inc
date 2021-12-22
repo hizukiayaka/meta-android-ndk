@@ -45,6 +45,7 @@ SOLIBS:runtime-android = ".so"
 SOLIBSDEV:runtime-android = ".so.broken"
 
 PREFERRED_PROVIDER_virtual/libc = "bionic-external"
+PREFERRED_PROVIDER_virtual/${TARGET_PREFIX}compilerlibs = "libcxx-external"
 # NOTE: Android only provides libiconv with API level >=28 (Pie and newer)
 PREFERRED_PROVIDER_virtual/libiconv = "bionic-external"
 PREFERRED_PROVIDER_virtual/libintl = "proxy-libintl"

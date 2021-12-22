@@ -6,7 +6,7 @@ SECTION = "base"
 
 inherit external-toolchain
 
-PROVIDES += "libcxx"
+PROVIDES += "libcxx virtual/${TARGET_PREFIX}compilerlibs"
 
 DEPENDS:append:class-target = " virtual/${MLPREFIX}libc"
 

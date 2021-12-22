@@ -38,6 +38,8 @@ RDEPENDS:${PN}-dev += "${PN}-staticdev"
 libc_rdep = "${@'${PREFERRED_PROVIDER_virtual/libc}' if '${PREFERRED_PROVIDER_virtual/libc}' else '${TCLIBC}'}"
 RDEPENDS_${PN} += "${libc_rdep}"
 
+COMPILER_RT ?= "-rtlib=compiler-rt"
+
 INHIBIT_DEFAULT_DEPS = "1"
 
 ALLOW_EMPTY_${PN} = "1"
