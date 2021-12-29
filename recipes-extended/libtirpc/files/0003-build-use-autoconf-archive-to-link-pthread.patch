@@ -1,0 +1,54 @@
+From dbb9436a46cdaf2a8cb2511b68e85eaf95272ed7 Mon Sep 17 00:00:00 2001
+From: "Hsia-Jun(Randy) Li" <randy.li@synaptics.com>
+Date: Fri, 17 Dec 2021 17:17:06 +0800
+Subject: [PATCH 3/3] build: use autoconf archive to link pthread
+
+For Android bionic, pthread is a part of that c library.
+
+Signed-off-by: Hsia-Jun(Randy) Li <randy.li@synaptics.com>
+---
+ configure.ac    | 2 +-
+ libtirpc.pc.in  | 2 +-
+ src/Makefile.am | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 013718a..23c4ac8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -94,7 +94,7 @@ AC_PROG_LIBTOOL
+ AC_HEADER_DIRENT
+ AC_PREFIX_DEFAULT(/usr)
+ AC_CHECK_HEADERS([arpa/inet.h fcntl.h libintl.h limits.h locale.h netdb.h netinet/in.h stddef.h stdint.h stdlib.h string.h sys/ioctl.h sys/param.h sys/socket.h sys/time.h syslog.h unistd.h features.h gssapi/gssapi_ext.h])
+-AC_CHECK_LIB([pthread], [pthread_create])
++AX_PTHREAD
+ AC_CHECK_FUNCS([getrpcbyname getrpcbynumber setrpcent endrpcent getrpcent])
+ 
+ AC_CONFIG_FILES([Makefile src/Makefile man/Makefile doc/Makefile])
+diff --git a/libtirpc.pc.in b/libtirpc.pc.in
+index d2c7878..6979747 100644
+--- a/libtirpc.pc.in
++++ b/libtirpc.pc.in
+@@ -8,5 +8,5 @@ Description: Transport Independent RPC Library
+ Requires:
+ Version: @PACKAGE_VERSION@
+ Libs: -L${libdir} -ltirpc
+-Libs.private: -lpthread
++Libs.private: @PTHREAD_LIBS@
+ Cflags: -I${includedir}/tirpc
+diff --git a/src/Makefile.am b/src/Makefile.am
+index b2d5436..0cef093 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -12,7 +12,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/tirpc -include config.h -DPORTMAP -DINET6 \
+ 
+ lib_LTLIBRARIES = libtirpc.la
+ 
+-libtirpc_la_LDFLAGS = @LDFLAG_NOUNDEFINED@ -no-undefined -lpthread
++libtirpc_la_LDFLAGS = @LDFLAG_NOUNDEFINED@ -no-undefined @PTHREAD_LIBS@
+ libtirpc_la_LDFLAGS += -version-info @LT_VERSION_INFO@
+ 
+ libtirpc_la_SOURCES = auth_none.c auth_unix.c authunix_prot.c \
+-- 
+2.17.1
+

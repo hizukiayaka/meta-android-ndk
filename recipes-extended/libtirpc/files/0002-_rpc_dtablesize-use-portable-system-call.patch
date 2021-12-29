@@ -1,0 +1,29 @@
+From 1e0f47e0383daa25f421183441f20dc7e44789d7 Mon Sep 17 00:00:00 2001
+From: "Hsia-Jun(Randy) Li" <randy.li@synaptics.com>
+Date: Fri, 17 Dec 2021 11:20:22 +0800
+Subject: [PATCH 2/3] _rpc_dtablesize: use portable system call
+
+getdtablesize() is not specified in POSIX.1, Android won't
+support it at all.
+
+Signed-off-by: Hsia-Jun(Randy) Li <randy.li@synaptics.com>
+---
+ src/rpc_dtablesize.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/rpc_dtablesize.c b/src/rpc_dtablesize.c
+index 3fe503a..bce97e8 100644
+--- a/src/rpc_dtablesize.c
++++ b/src/rpc_dtablesize.c
+@@ -41,7 +41,7 @@ _rpc_dtablesize(void)
+ 	static int size;
+ 
+ 	if (size == 0) {
+-		size = getdtablesize();
++		size = sysconf(_SC_OPEN_MAX);
+ 	}
+ 	return (size);
+ }
+-- 
+2.17.1
+
